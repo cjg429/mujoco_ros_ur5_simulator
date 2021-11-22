@@ -13,8 +13,8 @@ build your catkin workspace with [catkin_ws](https://github.com/cjg429/mujoco_ro
 ```
 sudo apt-get install ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-moveit
 ```
-source /opt/ros/kinetic/setup.bash
-source ~/catkin_ws/devel/setup.bash
+- source /opt/ros/kinetic/setup.bash
+- source ~/catkin_ws/devel/setup.bash
 
 ### Install Conda
 
