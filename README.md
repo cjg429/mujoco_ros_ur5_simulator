@@ -2,7 +2,13 @@
 
 ### Requirements
 
-conda, python 3.6
+ROS Kinetic, conda, python 3.6
+
+### Install ROS
+
+Follow http://wiki.ros.org/kinetic/Installation/Ubuntu
+
+build your catkin workspace with catkin_ws
 
 ### Install Conda
 
