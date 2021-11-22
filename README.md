@@ -28,4 +28,8 @@ conda install -c anaconda patchelf
 ```
 Follow https://github.com/openai/mujoco-py
 
+```
+sudo apt-get install python3-catkin-pkg-modules
+sudo apt-get install python3-rospkg-modules
+```
 
