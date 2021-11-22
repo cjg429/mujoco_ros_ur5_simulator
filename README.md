@@ -8,7 +8,7 @@ ROS Kinetic, conda, python 3.6
 
 Follow http://wiki.ros.org/kinetic/Installation/Ubuntu
 
-build your catkin workspace with catkin_ws
+build your catkin workspace with [catkin_ws]((https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](https://openai.github.io/mujoco-py/build/html/index.html)
 
 ### Install Conda
 
