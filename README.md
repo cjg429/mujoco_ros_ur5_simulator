@@ -1,7 +1,11 @@
 # mujoco_ros_ur5_simulator
 
-## Install MuJoCo
+### Requirements
 
-### Follow https://github.com/openai/mujoco-py
+python 3.6
 
-### python 3.6
+### Install MuJoCo
+
+Follow https://github.com/openai/mujoco-py
+
+
