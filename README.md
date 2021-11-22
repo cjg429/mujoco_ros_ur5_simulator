@@ -10,6 +10,10 @@ Follow http://wiki.ros.org/kinetic/Installation/Ubuntu
 
 build your catkin workspace with [catkin_ws](https://github.com/cjg429/mujoco_ros_ur5_simulator/tree/main/catkin_ws)
 
+```
+sudo apt-get install ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-moveit
+```
+
 ### Install Conda
 
 Follow https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
