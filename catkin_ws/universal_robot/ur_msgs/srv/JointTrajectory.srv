@@ -1,0 +1,5 @@
+
+string[] arm_joint_name
+float64[] arm_pose
+---
+trajectory_msgs/JointTrajectory plan
