@@ -37,4 +37,13 @@ conda install -c conda-forge ros-rospy
 ```
 roslaunch ur5_robotiq_moveit demo.launch
 ```
+### Run ur5 planner 
+```
+python2 ur5_moveit/planner.py
+```
+### Run MuJoCo planner in conda envrionemnt
+```
+conda activate mujoco
+python ur5_moveit/mujoco_planner.py
+```
 
