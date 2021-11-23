@@ -33,6 +33,11 @@ Follow https://github.com/openai/mujoco-py
 ```
 conda install -c conda-forge ros-rospy 
 ```
+Add following lines to bashrc file
+- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jaegu/.mujoco/mujoco210/bin
+- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
+- export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+
 ### Launch UR5 moveit package
 ```
 roslaunch ur5_robotiq_moveit demo.launch
