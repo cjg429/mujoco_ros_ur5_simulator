@@ -1,0 +1,25 @@
+<mujoco model="ball_joint">
+  <asset>
+    <mesh name="ball_joint_base"     file="ball_joint/ball_joint_base.stl"      scale="0.005 0.005 0.005"/>
+    <mesh name="ball_joint_link"       file="ball_joint/ball_joint_link.stl"      scale="0.005 0.005 0.005"/>
+  </asset>
+
+  <worldbody>
+    <body name="torso" pos="0 0.3 0.9" euler="0 0 0">
+      <joint name="joint0" type="free"/>
+      <geom type="mesh" mesh="ball_joint_base"/>
+      <body name="ball_joint_link" pos="0 0 0.0">
+        <joint axis="1 0 0" name="joint1" pos="0 0 0.11005" type="hinge"/>
+        <geom type="mesh" mesh="ball_joint_link"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+
+    <!--position name='joint1' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='joint1' kp="500" /-->
+
+    <!--motor gear="500" joint="joint1" name="joint1"/-->
+  </actuator>
+
+</mujoco>

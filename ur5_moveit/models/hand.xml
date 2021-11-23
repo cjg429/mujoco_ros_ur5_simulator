@@ -1,0 +1,51 @@
+<mujoco model="hand">
+  <asset>
+    <mesh name="hand_base"       file="hand/hand_base_o.stl"         scale="0.01 0.01 0.01"/>
+    <mesh name="wrist"           file="hand/hand_wrist_o.stl"        scale="0.01 0.01 0.01"/>
+    <mesh name="finger1"         file="hand/hand_finger1_o.stl"      scale="0.01 0.01 0.01"/>
+    <mesh name="finger2"         file="hand/hand_finger2_o.stl"      scale="0.01 0.01 0.01"/>
+    <mesh name="finger3"         file="hand/hand_finger3_o.stl"      scale="0.01 0.01 0.01"/>
+    <mesh name="finger4"         file="hand/hand_finger4_o.stl"      scale="0.01 0.01 0.01"/>
+    <mesh name="finger5"         file="hand/hand_finger5_o.stl"      scale="0.01 0.01 0.01"/>
+  </asset>
+
+  <worldbody>
+    <body name="torso" pos="0.0 0.8 1.0" euler="0 0 0">
+      <geom type="mesh" mesh="hand_base"/>
+      <body name="wrist_link" pos="0.0 0.0 0.0">
+        <!--joint axis="0 1 0" name="joint1" pos="-0.03 0.0 0.03" range="-1.0 1.0" type="hinge"/-->
+        <geom type="mesh" mesh="wrist"/>
+      </body>
+      <body name="finger1_link" pos="0.0 0.0 0.0">
+        <!--joint axis="0 1 0" name="joint2" pos="0.0524 -0.0596 0.0539" range="-1.0 1.0" type="hinge"/-->
+        <geom type="mesh" mesh="finger1"/>
+      </body>
+      <body name="finger2_link" pos="0.02 0.0 0.0">
+        <joint axis="0 1 0" name="joint3" pos="0.1481 -0.0425 0.01" range="-1.0 1.0" type="hinge"/>
+        <geom type="mesh" mesh="finger2"/>
+      </body>
+      <body name="finger3_link" pos="0.02 0.0 0.0">
+        <joint axis="0 1 0" name="joint4" pos="0.1506 -0.0150 0.01" range="-1.0 1.0" type="hinge"/>
+        <geom type="mesh" mesh="finger3"/>
+      </body>
+      <body name="finger4_link" pos="0.02 0.0 0.0">
+        <joint axis="0 1 0" name="joint5" pos="0.1481 .0125 0.0" range="-1.0 1.0" type="hinge"/>
+        <geom type="mesh" mesh="finger4"/>
+      </body>
+      <body name="finger5_link" pos="0.02 0.0 0.0">
+        <joint axis="0 1 0" name="joint6" pos="0.1282 0.0425 0.01" range="-1.0 1.0" type="hinge"/>
+        <geom type="mesh" mesh="finger5"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <!--motor gear="200" joint="joint1" name="joint1"/>
+    <motor gear="200" joint="joint2" name="joint2"/-->
+    <motor gear="200" joint="joint3" name="joint3"/>
+    <motor gear="200" joint="joint4" name="joint4"/>
+    <motor gear="200" joint="joint5" name="joint5"/>
+    <motor gear="200" joint="joint6" name="joint6"/>
+  </actuator>
+
+</mujoco>

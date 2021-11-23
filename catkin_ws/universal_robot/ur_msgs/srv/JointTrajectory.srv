@@ -1,5 +1,6 @@
 
 string[] arm_joint_name
 float64[] arm_pose
+geometry_msgs/Pose endeffector_pose
 ---
 trajectory_msgs/JointTrajectory plan

@@ -1,0 +1,21 @@
+<mujoco model="windmill">
+  <asset>
+    <mesh name="windmill_base"       file="windmill/windmill_base_o.stl"      scale="0.01 0.01 0.01"/>
+    <mesh name="windmill_wing"       file="windmill/windmill_wing_o.stl"      scale="0.01 0.01 0.01"/>
+  </asset>
+
+  <worldbody>
+    <body name="torso" pos="0 0.3 1.0" euler="0 0 0">
+      <geom type="mesh" mesh="windmill_base"/>
+      <body name="windmill_wing_link" pos="0 -0.03 0.0">
+        <joint axis="0 1 0" name="joint1" pos="0 0 0.2389" range="-1.0 1.0" type="hinge"/>
+        <geom type="mesh" mesh="windmill_wing"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor gear="200" joint="joint1" name="joint1"/>
+  </actuator>
+
+</mujoco>

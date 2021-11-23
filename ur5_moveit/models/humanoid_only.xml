@@ -1,0 +1,210 @@
+<!--
+
+MODEL: Univewrsal Robots UR5 + Robotiq S Model 3 Finger Gripper
+AUTHOR: Andrea Franceschetti @IASLAB Research Group
+UNIVERSITY: University of Padua
+DEPARTMENT: Departement of Information Engineering DEI
+Control Engineering / Automation Engineering
+
+-->
+
+
+<!--Link  MuJoCo modeling: http://www.mujoco.org/book/modeling.html-->
+
+<mujoco model="ur5gripper">
+    <compiler angle="radian"
+              inertiafromgeom="true"
+              texturedir="textures/"
+              meshdir="mesh/visual/"/>
+    <option timestep="1e-2"
+            iterations="100"
+            tolerance="1e-10"
+            impratio="20"/>
+    <option solver="Newton"/>
+    <size njmax="600" nconmax="150" nstack="300000"/>
+    <option gravity="0 0 0"/>
+    <option cone="elliptic"/>
+    <option noslip_iterations="5"/>
+
+    <default>
+        <site rgba="0.8 0.6 0.7 0.3" type="ellipsoid" group="3"/>
+        <geom contype='1' conaffinity='1' condim='4'  margin="1e-3" solref=".01 1" solimp=".99 .99 .01" />
+        <joint armature="0.01" damping=".1"/>
+        <default class="UR5">
+            <joint damping='65'/>
+        </default>
+        <default class="UR5e">
+            <joint damping='45'/>
+        </default>
+        <default class="GRIPPER">
+            <joint damping='5'/>
+        </default>
+    </default>
+
+    <visual>
+        <map fogstart="3" fogend="5" znear="0.05"/>
+        <quality shadowsize="2048"/>
+        <scale framelength="0.1"
+               framewidth="0.005"
+               contactwidth="0.1"
+               contactheight="0.005"
+               forcewidth="0.01"
+               />
+    </visual>
+
+    
+    <asset>
+        
+        <mesh file="base.stl" name="base" />
+        <mesh file="shoulder.stl" name="shoulder" />
+        <mesh file="upperarm.stl" name="upperarm" />
+        <mesh file="forearm.stl" name="forearm" />
+        <mesh file="wrist1.stl" name="wrist1" />
+        <mesh file="wrist2.stl" name="wrist2" />
+        <mesh file="wrist3.stl" name="wrist3" />
+        <mesh file="palm.STL" name="gripperpalm" />
+        <mesh file="link_0.STL" name="link_0" />
+        <mesh file="link_1.STL" name="link_1" />
+        <mesh file="link_2.STL" name="link_2" />
+        <mesh file="link_3.STL" name="link_3" />
+        <mesh file="kinova_robotiq_coupler.stl" />
+        <mesh file="robotiq_85_base_link.stl" />
+        <mesh file="robotiq_85_finger_link.stl" />
+        <mesh file="robotiq_85_finger_tip_link.stl" />
+        <mesh file="robotiq_85_inner_knuckle_link.stl" />
+        <mesh file="robotiq_85_knuckle_link.stl" />
+
+        <mesh file="wrist3_visual.stl" name="wrist3_visual" />
+        <mesh file="robotiq_gripper_coupling.stl" name="robotiq_gripper_coupling" scale="0.001 0.001 0.001" />
+        <mesh file="gripper_base_visual.stl" name="gripper_base_visual" scale="0.001 0.001 0.001" />
+        <mesh file="robotiq_arg2f_85_base_link.stl" name="robotiq_arg2f_85_base_link" />
+        <mesh file="outer_knuckle_visual.stl" name="outer_knuckle_visual" scale="0.001 0.001 0.001" />
+        <mesh file="outer_finger_visual.stl" name="outer_finger_visual" scale="0.001 0.001 0.001" />
+        <mesh file="inner_finger_visual.stl" name="inner_finger_visual" scale="0.001 0.001 0.001" />
+        <mesh file="inner_knuckle_visual.stl" name="inner_knuckle_visual" scale="0.001 0.001 0.001" />
+
+        
+        <texture builtin="flat" height="32" name="ur5_tex" rgb1="0.45 0.45 0.45" type="2d" width="32" />
+        <texture builtin="flat" height="32" name="gripper_tex" rgb1="0.45 0.45 0.45" rgb2="0 0 0" type="2d" width="32" />
+        <texture builtin="flat" height="32" name="bench_tex" rgb1="0.7 0.7 0.7" type="2d" width="32" />
+        <texture builtin="gradient" height="100" name="sky_tex" rgb1="1 1 1" rgb2="0.3 0.3 0.8" type="skybox" width="100" />
+        <texture builtin="flat" height="1278" mark="cross" markrgb="1 1 1" name="texgeom" random="0.01" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" type="cube" width="127" />
+        <texture builtin="checker" height="100" name="floor_tex" rgb1=".2 .3 .4" rgb2=".1 .2 .3" type="2d" width="100" />
+        <texture file="wood2.png" name="wood" type="cube" />
+        <texture file="metal2.png" name="metal" type="cube" />
+        
+        <material name="ur5_mat" reflectance="0.3" shininess="0.9" specular="0.75" texture="ur5_tex" />
+        <material name="gripper_mat" reflectance="0.4" shininess="0.9" specular="0.75" texture="gripper_tex" />
+        <material name="floor_mat" reflectance="0.5" shininess="0.8" specular="0.7" texrepeat="10 10" texture="floor_tex" />
+        <material name="geom" texture="texgeom" texuniform="true" />
+        <material name="bench_mat" reflectance="0.2" shininess="0.1" specular="0.5" texture="metal" />
+        <material name="tablecube" rgba=".8 .8 .8 1" texture="wood" />
+
+        <material emission="0.1" name="GriMat" reflectance="0" rgba="0.1 0.1 0.1 1" shininess="0.5" specular="0.9" />
+    </asset>
+    
+    <worldbody>
+        
+        <geom material="floor_mat" name="floor" pos="0 0 0" size="2.5 2.5 0.1" type="plane" />
+
+        <body name="torso" pos="0.5 0.3 0.3" euler="-1.5708 1.5708 -1.5708">
+            <camera name="track" mode="trackcom" pos="0 -4 0" xyaxes="1 0 0 0 0 1"/>
+            <geom fromto="0 -.07 0 0 .07 0" name="torso1" size="0.07" type="capsule"/>
+            <geom name="head" pos="0 0 .19" size=".09" type="sphere" user="258"/>
+            <geom fromto="-.01 -.06 -.12 -.01 .06 -.12" name="uwaist" size="0.06" type="capsule"/>
+            <body name="lwaist" pos="-.01 0 -0.260" quat="1.000 0 -0.002 0">
+                <geom fromto="0 -.06 0 0 .06 0" name="lwaist" size="0.06" type="capsule"/>
+                <joint armature="0.02" axis="0 0 1" damping="5" name="abdomen_z" pos="0 0 0.065" range="-45 45" stiffness="20" type="hinge"/>
+                <joint armature="0.02" axis="0 1 0" damping="5" name="abdomen_y" pos="0 0 0.065" range="-75 30" stiffness="10" type="hinge"/>
+                <body name="pelvis" pos="0 0 -0.165" quat="1.000 0 -0.002 0">
+                    <joint armature="0.02" axis="1 0 0" damping="5" name="abdomen_x" pos="0 0 0.1" range="-35 35" stiffness="10" type="hinge"/>
+                    <geom fromto="-.02 -.07 0 -.02 .07 0" name="butt" size="0.09" type="capsule"/>
+                    <body name="right_thigh" pos="0 -0.1 -0.04">
+                        <joint armature="0.01" axis="1 0 0" damping="5" name="right_hip_x" pos="0 0 0" range="-25 5" stiffness="10" type="hinge"/>
+                        <joint armature="0.01" axis="0 0 1" damping="5" name="right_hip_z" pos="0 0 0" range="-60 35" stiffness="10" type="hinge"/>
+                        <joint armature="0.0080" axis="0 1 0" damping="5" name="right_hip_y" pos="0 0 0" range="-110 20" stiffness="20" type="hinge"/>
+                        <geom fromto="0 0 0 0 0.01 -.34" name="right_thigh1" size="0.06" type="capsule"/>
+                        <body name="right_shin" pos="0 0.01 -0.403">
+                            <joint armature="0.0060" axis="0 -1 0" name="right_knee" pos="0 0 .02" range="-160 -2" type="hinge"/>
+                            <geom fromto="0 0 0 0 0 -.3" name="right_shin1" size="0.049" type="capsule"/>
+                            <body name="right_foot" pos="0 0 -0.45">
+                                <geom name="right_foot" pos="0 0 0.1" size="0.075" type="sphere" user="0"/>
+                            </body>
+                        </body>
+                    </body>
+                    <body name="left_thigh" pos="0 0.1 -0.04">
+                        <joint armature="0.01" axis="-1 0 0" damping="5" name="left_hip_x" pos="0 0 0" range="-25 5" stiffness="10" type="hinge"/>
+                        <joint armature="0.01" axis="0 0 -1" damping="5" name="left_hip_z" pos="0 0 0" range="-60 35" stiffness="10" type="hinge"/>
+                        <joint armature="0.01" axis="0 1 0" damping="5" name="left_hip_y" pos="0 0 0" range="-110 20" stiffness="20" type="hinge"/>
+                        <geom fromto="0 0 0 0 -0.01 -.34" name="left_thigh1" size="0.06" type="capsule"/>
+                        <body name="left_shin" pos="0 -0.01 -0.403">
+                            <joint armature="0.0060" axis="0 -1 0" name="left_knee" pos="0 0 .02" range="-160 -2" stiffness="1" type="hinge"/>
+                            <geom fromto="0 0 0 0 0 -.3" name="left_shin1" size="0.049" type="capsule"/>
+                            <body name="left_foot" pos="0 0 -0.45">
+                                <geom name="left_foot" type="sphere" size="0.075" pos="0 0 0.1" user="0" />
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+            <body name="right_upper_arm" pos="0 -0.17 0.06">
+                <joint armature="0.0068" axis="2 1 1" name="right_shoulder1" pos="0 0 0" range="-85 60" stiffness="1" type="hinge"/>
+                <joint armature="0.0051" axis="0 -1 1" name="right_shoulder2" pos="0 0 0" range="-85 60" stiffness="1" type="hinge"/>
+                <geom fromto="0 0 0 .16 -.16 -.16" name="right_uarm1" size="0.04 0.16" type="capsule"/>
+                <body name="right_lower_arm" pos=".18 -.18 -.18">
+                    <!--joint armature="0.0028" axis="0 -1 1" name="right_elbow" pos="0 0 0" range="-90 50" stiffness="0" type="hinge"/-->
+                    <joint armature="0.0028" axis="0 -1 1" name="right_elbow" pos="0 0 0" range="-90 20" stiffness="0" type="hinge"/>
+                    <geom fromto="0.01 0.01 0.01 .17 .17 .17" name="right_larm" size="0.031" type="capsule"/>
+                    <geom name="right_hand" pos=".18 .18 .18" size="0.04" type="sphere"/>
+                    <camera pos="0 0 0"/>
+                </body>
+            </body>
+            <body name="left_upper_arm" pos="0 0.17 0.06">
+                <joint armature="0.0068" axis="2 -1 1" name="left_shoulder1" pos="0 0 0" range="-60 85" stiffness="1" type="hinge"/>
+                <joint armature="0.0051" axis="0 1 1" name="left_shoulder2" pos="0 0 0" range="-60 85" stiffness="1" type="hinge"/>
+                <geom fromto="0 0 0 .16 .16 -.16" name="left_uarm1" size="0.04 0.16" type="capsule"/>
+                <body name="left_lower_arm" pos=".18 .18 -.18">
+                    <!--joint armature="0.0028" axis="0 -1 -1" name="left_elbow" pos="0 0 0" range="-90 50" stiffness="0" type="hinge"/-->
+                    <joint armature="0.0028" axis="0 -1 -1" name="left_elbow" pos="0 0 0" range="-90 20" stiffness="0" type="hinge"/>
+                    <geom fromto="0.01 -0.01 0.01 .17 -.17 .17" name="left_larm" size="0.031" type="capsule"/>
+                    <geom name="left_hand" pos=".18 -.18 .18" size="0.04" type="sphere"/>
+                </body>
+            </body>
+        </body>
+
+        <camera mode="fixed" name="eye_in_hand" pos="0.15 0.0 0.0" quat="0 0.707108 0.707108 0" fovy="45"/>
+        <camera euler="-1.5708 0 0" mode="fixed" name="frontview" pos="0.81725 1.34 0.84" />
+    </worldbody>
+
+    <tendon>
+        <fixed name="left_hipknee">
+            <joint coef="-1" joint="left_hip_y"/>
+            <joint coef="1" joint="left_knee"/>
+        </fixed>
+        <fixed name="right_hipknee">
+            <joint coef="-1" joint="right_hip_y"/>
+            <joint coef="1" joint="right_knee"/>
+        </fixed>
+    </tendon>
+
+    <actuator>
+        <motor gear="100" joint="abdomen_y" name="abdomen_y"/>
+        <motor gear="100" joint="abdomen_z" name="abdomen_z"/>
+        <motor gear="100" joint="abdomen_x" name="abdomen_x"/>
+        <motor gear="100" joint="right_hip_x" name="right_hip_x"/>
+        <motor gear="100" joint="right_hip_z" name="right_hip_z"/>
+        <motor gear="300" joint="right_hip_y" name="right_hip_y"/>
+        <motor gear="200" joint="right_knee" name="right_knee"/>
+        <motor gear="100" joint="left_hip_x" name="left_hip_x"/>
+        <motor gear="100" joint="left_hip_z" name="left_hip_z"/>
+        <motor gear="300" joint="left_hip_y" name="left_hip_y"/>
+        <motor gear="200" joint="left_knee" name="left_knee"/>
+        <motor gear="25" joint="right_shoulder1" name="right_shoulder1"/>
+        <motor gear="25" joint="right_shoulder2" name="right_shoulder2"/>
+        <motor gear="25" joint="right_elbow" name="right_elbow"/>
+        <motor gear="25" joint="left_shoulder1" name="left_shoulder1"/>
+        <motor gear="25" joint="left_shoulder2" name="left_shoulder2"/>
+        <motor gear="25" joint="left_elbow" name="left_elbow"/>
+    </actuator>
+
+</mujoco>

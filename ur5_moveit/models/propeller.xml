@@ -1,0 +1,21 @@
+<mujoco model="propeller">
+    <worldbody>
+        <body name="torso" pos="0 0.3 1.0" euler="0 0 0">
+          <!--joint armature="0" axis="1 0 0" damping="0" limited="false" name="rootx" pos="0 0 0" stiffness="0" type="slide"/>
+          <joint armature="0" axis="0 0 1" damping="0" limited="false" name="rootz" pos="0 0 0" stiffness="0" type="slide"/>
+          <joint armature="0" axis="0 1 0" damping="0" limited="false" name="rooty" pos="0 0 0" stiffness="0" type="hinge"/-->
+          <geom name="torso" size="0.10 0.0184" rgba="1.0 0.0 0.0 1" type="cylinder"/>
+          <geom name="hinge" pos="0 0 0.0368" size="0.01 0.0184" rgba="0.0 0.1 0.0 1" type="cylinder"/>
+          <!--body name="wing" pos="0 0 0.0552"--> 
+          <body name="wing" pos="0 0 0.075"> 
+            <joint axis="0 0 1" name="joint1" pos="0 0 0.0184" range="-0.1 0.1" type="hinge"/>
+            <geom name="wing" pos="0 0 0" fromto="-.05 0 0 .05 0 0" size="0.0184" rgba="0.0 0.0 1.0 1" type="capsule"/>
+          </body>
+        </body>
+    </worldbody>
+
+    <actuator>
+      <motor gear="200" joint="joint1" name="joint1"/>
+    </actuator>
+
+</mujoco>

@@ -1,0 +1,42 @@
+<mujoco model="example">
+    <compiler angle="degree" coordinate="local" inertiafromgeom="true"/>
+    <default>
+        <geom rgba="0.5 0.5 0.8 1"/>
+    </default>
+    <asset>
+        <mesh file="robotiq/robotiq_base.stl"/>
+        <mesh file="robotiq/robotiq_finger_inner.stl"/>
+        <mesh file="robotiq/robotiq_finger_outer.stl"/>
+        <mesh file="robotiq/robotiq_finger_tip.stl"/>
+    </asset>
+    <worldbody>
+        <light pos="0 1 1" dir="0 -1 -1" diffuse="1 1 1"/>
+        <body name="robotiq" pos="0 0 0">
+            <geom type="mesh" contype="2" mesh="robotiq_base" name="robotiq_base" pos="0 0 0" />
+            <body name="robotiq_right_finger_inner" pos="0.061238 -0.012647 0">
+              <geom type="mesh" contype="2" mesh="robotiq_finger_inner" name="robotiq_right_finger_inner" pos="0 0 0" />
+              <joint name="robotiq_right_finger_inner_joint" axis="0 0 1" type="hinge" limited="false"/>
+
+              <body name="robotiq_right_finger_tip" pos="0.043235 -0.03768 0">
+                <geom type="mesh" contype="2" mesh="robotiq_finger_tip" name="robotiq_right_finger_tip" pos="0 0 0" />
+                <joint name="robotiq_right_finger_tip_joint" axis="0 0 1" type="hinge" limited="false"/>
+              </body>
+            </body>
+            <body name="robotiq_right_finger_outer" pos="0.054817 -0.030616 0">
+              <geom type="mesh" contype="2" mesh="robotiq_finger_outer" name="robotiq_right_finger_outer" pos="0 0 0" />
+              <joint name="robotiq_right_finger_outer_joint" axis="0 0 1" type="hinge" limited="false"/>
+            </body>
+        </body>
+    </worldbody>
+    <equality>
+      <connect body1="robotiq_right_finger_outer" body2="robotiq_right_finger_tip" anchor="0.049656 -0.019711 0"/>
+    </equality>
+    <actuator>
+        <motor
+          joint="robotiq_right_finger_inner_joint"
+          name="robotiq_right_finger_inner_act"
+          forcelimited="true"
+          forcerange="-1 1"
+        />
+    </actuator>
+</mujoco>

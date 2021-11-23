@@ -1,0 +1,349 @@
+<!--
+
+MODEL: Univewrsal Robots UR5 + Robotiq S Model 3 Finger Gripper
+AUTHOR: Andrea Franceschetti @IASLAB Research Group
+UNIVERSITY: University of Padua
+DEPARTMENT: Departement of Information Engineering DEI
+Control Engineering / Automation Engineering
+
+-->
+
+
+<!--Link  MuJoCo modeling: http://www.mujoco.org/book/modeling.html-->
+
+<mujoco model="ur5gripper">
+    <compiler angle="radian"
+              inertiafromgeom="true"
+              texturedir="textures/"
+              meshdir="mesh/visual/"/>
+    <option timestep="1e-2"
+            iterations="100"
+            tolerance="1e-10"
+            impratio="20"/>
+    <option solver="Newton"/>
+    <size njmax="600" nconmax="150" nstack="300000"/>
+    <option gravity="0 0 0"/>
+    <option cone="elliptic"/>
+    <option noslip_iterations="5"/>
+
+    <default>
+        <site rgba="0.8 0.6 0.7 0.3" type="ellipsoid" group="3"/>
+        <geom contype='1' conaffinity='1' condim='4'  margin="1e-3" solref=".01 1" solimp=".99 .99 .01" />
+        <joint armature="0.01" damping=".1"/>
+        <default class="UR5">
+            <joint damping='65'/>
+        </default>
+        <default class="UR5e">
+            <joint damping='45'/>
+        </default>
+        <default class="GRIPPER">
+            <joint damping='5'/>
+        </default>
+    </default>
+
+    <visual>
+        <map fogstart="3" fogend="5" znear="0.05"/>
+        <quality shadowsize="2048"/>
+        <scale framelength="0.1"
+               framewidth="0.005"
+               contactwidth="0.1"
+               contactheight="0.005"
+               forcewidth="0.01"
+               />
+    </visual>
+
+    <!--Assets-->
+    <asset>
+        <!--Meshes-->
+        <mesh name="base"           file="base.stl"     />
+        <mesh name="shoulder"       file="shoulder.stl" />
+        <mesh name="upperarm"       file="upperarm.stl" />
+        <mesh name="forearm"        file="forearm.stl"  />
+        <mesh name="wrist1"         file="wrist1.stl"   />
+        <mesh name="wrist2"         file="wrist2.stl"   />
+        <mesh name="wrist3"         file="wrist3.stl"   />
+        <mesh name="gripperpalm"    file="palm.STL"     />
+        <mesh name="link_0"         file="link_0.STL"   />
+        <mesh name="link_1"         file="link_1.STL"   />
+        <mesh name="link_2"         file="link_2.STL"   />
+        <mesh name="link_3"         file="link_3.STL"   />
+        <mesh file="kinova_robotiq_coupler.stl" />
+        <mesh file="robotiq_85_base_link.stl" />
+        <mesh file="robotiq_85_finger_link.stl" />
+        <mesh file="robotiq_85_finger_tip_link.stl" />
+        <mesh file="robotiq_85_inner_knuckle_link.stl" />
+        <mesh file="robotiq_85_knuckle_link.stl" />
+
+        <mesh name="wrist3_visual" file="wrist3_visual.stl" />
+        <mesh name="robotiq_gripper_coupling" file="robotiq_gripper_coupling.stl" scale="0.001 0.001 0.001" />
+        <mesh name="gripper_base_visual" file="gripper_base_visual.stl" scale="0.001 0.001 0.001" />
+        <mesh name="robotiq_arg2f_85_base_link" file="robotiq_arg2f_85_base_link.stl" />
+        <mesh name="outer_knuckle_visual" file="outer_knuckle_visual.stl" scale="0.001 0.001 0.001" />
+        <mesh name="outer_finger_visual" file="outer_finger_visual.stl" scale="0.001 0.001 0.001" />
+        <mesh name="inner_finger_visual" file="inner_finger_visual.stl" scale="0.001 0.001 0.001" />
+        <mesh name="inner_knuckle_visual" file="inner_knuckle_visual.stl" scale="0.001 0.001 0.001" />
+
+        <!--Textures-->
+        <texture name="ur5_tex"     type="2d"       builtin="flat" height="32" width="32" rgb1="0.45 0.45 0.45" />
+        <texture name="gripper_tex" type="2d"       builtin="flat" height="32" width="32" rgb1="0.45 0.45 0.45" rgb2="0 0 0"/>
+        <texture name="bench_tex"   type="2d"       builtin="flat" height="32" width="32" rgb1="0.7 0.7 0.7" />
+        <texture name="sky_tex"     type="skybox"   builtin="gradient" width="100" height="100" rgb1="1 1 1" rgb2="0.3 0.3 0.8" />
+        <texture name="texgeom"     type="cube"     builtin="flat" mark="cross" width="127" height="1278" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" markrgb="1 1 1" random="0.01" />
+        <texture name="floor_tex"   type="2d"        builtin="checker" rgb1=".2 .3 .4" rgb2=".1 .2 .3" width="100" height="100" />
+        <texture name="wood"        type="cube"     file="wood2.png"/>
+        <texture name="metal"        type="cube"     file="metal2.png"/>
+        <!--Materials-->
+        <material name="ur5_mat"        texture="ur5_tex"   shininess="0.9" specular="0.75" reflectance="0.3"/>
+        <material name="gripper_mat"    texture="gripper_tex"   shininess="0.9" specular="0.75" reflectance="0.4"/>
+        <material name='floor_mat'      texture="floor_tex"  shininess="0.8" texrepeat="10 10" specular="0.7"  reflectance="0.5" />
+        <material name='geom'           texture="texgeom"   texuniform="true" />
+        <material name="bench_mat"      texture="metal"   shininess="0.1" specular="0.5" reflectance="0.2"/>
+        <material name="tablecube"      texture="wood" rgba=".8 .8 .8 1"/>
+
+        <material name="GriMat" specular="0.9" shininess="0.5" reflectance="0" rgba="0.1 0.1 0.1 1" emission="0.1" />
+    </asset>
+
+    <!--Contacts-->
+    <contact>
+        <exclude body1="box_link" body2="base_link"/>
+		<exclude body1="base_link" body2="shoulder_link"/>
+		<exclude body1="shoulder_link" body2="upper_arm_link"/>
+        <exclude body1="upper_arm_link" body2="forearm_link"/>
+		<exclude body1="forearm_link" body2="wrist_1_link"/>
+		<exclude body1="wrist_1_link" body2="wrist_2_link"/>
+        <exclude body1="wrist_2_link" body2="wrist_3_link"/>
+        <!--exclude body1="ee_link" body2="wrist_3_link"/-->
+    </contact>
+
+    <!--MODEL DESCRIPTION-->
+    <worldbody>
+        <!--Lighting parameters-->
+        <light name="light3" mode="targetbody" target="box_link" directional="true" pos="1 1 3" />
+        <!--Floor Property-->
+        <geom name='floor' material="floor_mat" pos='0 0 0' size='2.5 2.5 0.1'  type='plane' />
+
+        <!--Robot UR5-->
+        <body name="box_link" pos="0 0 0.435">
+            <geom size="1.2 0.8 0.435" type="box" material="bench_mat"/>
+            <!--geom size=".29 .19 .03" pos ="0 0 0.4" type="box" material="bench_mat"/>
+            <geom size=".29 .19 .03" pos ="0 0 -0.2" type="box" material="bench_mat"/>
+            <geom size=".04 .04 .435" pos =".26 .16 0" type="box" material="bench_mat"/>
+            <geom size=".04 .04 .435" pos ="-.26 .16 0" type="box" material="bench_mat"/>
+            <geom size=".04 .04 .435" pos =".26 -.16 0" type="box" material="bench_mat"/>
+            <geom size=".04 .04 .435" pos ="-.26 -.16 0" type="box" material="bench_mat"/-->
+            <inertial pos="0 0 0" mass="1000" diaginertia="0 0 0" />
+            <body name="base_link" pos="0 -0.4 0.435">
+                <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="4" diaginertia="0.0072 0.00443333 0.00443333" />
+                <geom type="mesh"  mesh="base" material="ur5_mat"/>
+                <body name="shoulder_link" pos="0 0 0.089159">
+                    <inertial pos="0 0 0" mass="3.7" diaginertia="0.0102675 0.0102675 0.00666" />
+                    <joint name="shoulder_pan_joint" class="UR5" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14159 3.14159" />
+                    <geom type="mesh"  mesh="shoulder" material="ur5_mat"/>
+                    <body name="upper_arm_link" pos="0 0.13585 0" quat="0.707107 0 0.707107 0">
+                        <inertial pos="0 0 0.28" mass="8.393" diaginertia="0.226891 0.226891 0.0151074" />
+                        <joint name="shoulder_lift_joint" class="UR5" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14159 0" /> <!--Range= -3.14159 3.14159-->
+                        <geom type="mesh"  mesh="upperarm" material="ur5_mat"/>
+                        <body name="forearm_link" pos="0 -0.1197 0.425">
+                            <inertial pos="0 0 0.25" mass="2.275" diaginertia="0.0494433 0.0494433 0.004095" />
+                            <joint name="elbow_joint" class="UR5" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14159 3.14159" />
+                            <geom type="mesh"  mesh="forearm" material="ur5_mat"/>
+                            <body name="wrist_1_link" pos="0 0 0.39225" quat="0.707107 0 0.707107 0">
+                                <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="1.219" diaginertia="0.21942 0.111173 0.111173" />
+                                <joint name="wrist_1_joint" class="UR5e" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14159 3.14159" />
+                                <geom type="mesh"  mesh="wrist1" material="ur5_mat"/>
+                                <body name="wrist_2_link" pos="0 0.093 0">
+                                    <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="1.219" diaginertia="0.21942 0.111173 0.111173" />
+                                    <joint name="wrist_2_joint" class="UR5e" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14159 3.14159" />
+                                    <geom type="mesh"  mesh="wrist2" material="ur5_mat"/>
+                                    <!--body name="wrist_3_link" pos="0 0 0.09465"-->
+                                    <!--body name="wrist_3_link" pos="0 0.0823 0.09465" quat="0.707107 -0.707107 0 0"-->  
+                                    <body name="wrist_3_link" pos="0 0 0.09465">  
+                                        <!--inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.1879" diaginertia="0.033822 0.0171365 0.0171365" />
+                                        <geom pos="0 0 -0.0818" quat="0.707107 0.707107 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.7 0.7 0.7 1" mesh="wrist3_visual" />
+                                        <geom pos="0 0 -0.0823" quat="0.707107 0.707107 0 0" type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist3" />
+                                        <geom pos="0 0 0.004" quat="0.707107 0 0 -0.707107" type="mesh" contype="0" conaffinity="0" group="1" mesh="robotiq_gripper_coupling" />
+                                        <geom size="0.005 0.005 0.005" pos="0 0 0.004" quat="0.707107 0 0 -0.707107" type="box" />
+                                        <geom pos="0 0 0.008" quat="0.707107 0 0 -0.707107" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="gripper_base_visual" />
+                                        <geom pos="0 0 0.008" quat="0.707107 0 0 -0.707107" type="mesh" rgba="0.1 0.1 0.1 1" mesh="robotiq_arg2f_85_base_link" /-->
+
+                                        <!--joint name="wrist_3_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-3.14159 3.14159" />
+                                        <geom pos="0 0 -0.0823" quat="0.707107 0.707107 0 0" type="mesh" material="ur5_mat" mesh="wrist3" />
+                                        <geom name="kinova_robotiq_coupler_mesh" type="mesh" mesh="kinova_robotiq_coupler" pos="0 0 0.0466" material="GriMat" />
+                                        <geom name="robotiq_85_base_link_mesh" type="mesh" mesh="robotiq_85_base_link" pos="0 0 0.0016" quat="0.707107 0 -0.707107 0" material="GriMat" /-->
+
+                                        <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.1879" diaginertia="0.033822 0.0171365 0.0171365" />
+                                        <joint name="wrist_3_joint" class="UR5e" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14159 3.14159" />
+                                        <geom type="mesh"  mesh="wrist3" material="ur5_mat"/>
+
+                                        <body name="tool0" pos="0 0.0823 0" euler="-1.5707963267948966 0 0">
+                                        <!--body name="ee_link" pos="0 0.0823 0"--> 
+                                            <!--inertial pos="-0.01 0 0" mass="0.001" diaginertia="1.66667e-08 1.66667e-08 1.66667e-08" />
+                                            <geom size="0.005 0.005 0.005" pos="-0.01 0 0" type="box" /-->
+                                            <body name="robotiq_coupler" pos="0 0 0.004" euler="0 0 -1.5707963267948966">
+
+                                                <inertial pos="0 0.0823 0" quat="0.707107 -0.707107 0 0" mass="0" diaginertia="0 0 0" />
+                                                <geom name="kinova_robotiq_coupler_mesh" type="mesh" mesh="kinova_robotiq_coupler" pos="0 0 0.0466" material="GriMat" />
+                                                <geom name="robotiq_85_base_link_mesh" type="mesh" mesh="robotiq_85_base_link" pos="0 0 0.0016" quat="0.707107 0 -0.707107 0" material="GriMat" />
+
+                                                <camera mode="fixed" name="eye_in_hand" pos="0.15 0.0 0.0" quat="0 0.707108 0.707108 0" fovy="45"/>
+                                                <!--geom name="camera_site" type="sphere" size="0.02" pos="0.15 0.0 0.0" quat="0 0.707108 0.707108 0" /-->
+
+                                                <!--body name="right_driver" pos="0 -0.0306011 0.054904" quat="0.707107 0 -0.707107 0">
+                                                    <geom name="right_driver_mesh" type="mesh" mesh="robotiq_85_knuckle_link" material="GriMat" contype="0" conaffinity="0" />
+                                                    <joint name="finger_joint" axis="0 0 1" type="hinge" limited="true" range="0 0.872664626" />
+                                                    <body name="right_coupler" pos="0 -0.0315 0">
+                                                        <geom name="right_coupler_mesh" type="mesh" mesh="robotiq_85_finger_link" material="GriMat" contype="0" conaffinity="0" />
+                                                        <joint name="joint8_1" axis="0 0 1" type="hinge" limited="true" range="0 2.967059728" />
+                                                        <body name="right_follower_link" pos="0.0475 -0.006 0">
+                                                            <geom name="right_follower_mesh" pos="0.0025 0.021 0" type="mesh" mesh="robotiq_85_finger_tip_link" material="GriMat" />
+                                                            <joint name="left_inner_finger_joint" axis="0 0 1" type="hinge" limited="true" range="0 2.967059728" />
+                                                        </body>
+                                                    </body>
+                                                </body>
+                                                <body name="right_spring_link" pos="0.0016 -0.012 0.0614" quat="0.707107 0 -0.707107 0">
+                                                    <geom name="right_spring_mesh" type="mesh" pos="0 -0.0005 0.0016" mesh="robotiq_85_inner_knuckle_link" material="GriMat" contype="0" conaffinity="0" />
+                                                    <joint name="left_inner_knuckle_joint" axis="0 0 1" type="hinge" limited="true" range="0 1" />
+                                                </body-->
+
+                                                <!--body name="left_outer_knuckle" pos="-0.0306011 0 0.062904" quat="0 0 0 1"--> 
+                                                <!--body name="left_outer_knuckle" pos="-0.0306011 0 0.062904" quat="1 0 0 0"-->
+                                                <body name="endeffector" pos="0 0 0" quat="0.707107 0 0 0.707107">
+                                                    <site name="end_effector_site" size="0.02 0.02 0.02" pos="0 0 0.16" type="box" rgba="0.3 0.2 0.1 0.3"/>
+
+                                                    <body name="left_outer_knuckle" pos="-0.0306011 0 0.062904" quat="0.707107 0 0 0.707107">     
+                                                        <inertial pos="0.000163875 0.0554825 -0.0100755" quat="0.920541 0.390623 -0.00362953 0.00231744" mass="0.0311462" diaginertia="5.11372e-05 4.89464e-05 4.95906e-06" />
+                                                        <joint name="finger_joint" pos="0 0 0" axis="1 0 0" limited="true" range="0 0.8" armature="100" damping="1000" solimplimit="0.99 0.999 0.01" solreflimit="0.01 1"/>
+                                                        <geom quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="outer_knuckle_visual" />
+                                                        <geom size="0.005 0.005 0.005" type="box" rgba="0.792157 0.819608 0.933333 1" />
+                                                        <geom pos="0 0.0315 -0.0041" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="outer_finger_visual" />
+                                                        <geom size="0.005 0.005 0.005" pos="0 0.0315 -0.0041" type="box" rgba="0.1 0.1 0.1 1" />
+                                                        <body name="left_inner_finger" pos="0 0.0376 0.043">
+                                                            <inertial pos="0.000199506 0.0032692 0.00175282" quat="0.933621 0.35825 -0.00273441 0.00104851" mass="0.0156391" diaginertia="1.57977e-05 1.51089e-05 1.4647e-06" />
+                                                            <joint name="left_inner_finger_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.8757 0" />
+                                                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="inner_finger_visual" />
+                                                            <geom size="0.005 0.005 0.005" type="box" rgba="0.1 0.1 0.1 1" />
+                                                            <geom size="0.011 0.003175 0.01875" pos="0 -0.0220203 0.03242" type="box" contype="0" conaffinity="0" group="1" rgba="0.9 0.9 0.9 1" />
+                                                            <geom size="0.011 0.003175 0.01875" pos="0 -0.0220203 0.03242" type="box" rgba="0.9 0.9 0.9 1" condim="4"/>
+
+                                                            <site name="left_finger_sensor_site" size="0.011 0.003175 0.01875" pos="0 -0.0220203 0.03242" type="box" rgba="0.3 0.2 0.1 0.3"/>
+
+                                                        </body>
+                                                    </body>
+                                                    <body name="left_inner_knuckle" pos="-0.0127 0 0.06942" quat="0.707107 0 0 0.707107">
+                                                        <inertial pos="0.000123012 0.0507851 0.00103969" quat="0.497203 0.502496 -0.507943 0.492221" mass="0.0271177" diaginertia="2.83809e-05 2.61936e-05 2.81319e-06" />
+                                                        <joint name="left_inner_knuckle_joint" pos="0 0 0" axis="1 0 0" limited="true" range="0 0.8757" />
+                                                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="inner_knuckle_visual" />
+                                                        <geom size="0.005 0.005 0.005" type="box" rgba="0.1 0.1 0.1 1" />
+                                                    </body>
+
+                                                    <body name="right_outer_knuckle" pos="0.0306011 0 0.062904" quat="0.707107 0 0 -0.707107">
+                                                        <inertial pos="0.000163875 0.0554825 -0.0100755" quat="0.920541 0.390623 -0.00362953 0.00231744" mass="0.0311462" diaginertia="5.11372e-05 4.89464e-05 4.95906e-06" />
+                                                        <joint name="right_outer_knuckle_joint" pos="0 0 0" axis="1 0 0" limited="true" range="0 0.8" armature="100" damping="1000" solimplimit="0.99 0.999 0.01" solreflimit="0.01 1"/>
+                                                        <geom quat="0.707107 -0.707107 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.792157 0.819608 0.933333 1" mesh="outer_knuckle_visual" />
+                                                        <geom size="0.005 0.005 0.005" type="box" rgba="0.792157 0.819608 0.933333 1" />
+                                                        <geom pos="0 0.0315 -0.0041" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="outer_finger_visual" />
+                                                        <geom size="0.005 0.005 0.005" pos="0 0.0315 -0.0041" type="box" rgba="0.1 0.1 0.1 1" />
+                                                        <body name="right_inner_finger" pos="0 0.0376 0.043">
+                                                            <inertial pos="0.000199506 0.0032692 0.00175282" quat="0.933621 0.35825 -0.00273441 0.00104851" mass="0.0156391" diaginertia="1.57977e-05 1.51089e-05 1.4647e-06" />
+                                                            <joint name="right_inner_finger_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.8757 0" />
+                                                            <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="inner_finger_visual" />
+                                                            <geom size="0.005 0.005 0.005" type="box" rgba="0.1 0.1 0.1 1" />
+                                                            <geom size="0.011 0.003175 0.01875" pos="0 -0.0220203 0.03242" type="box" contype="0" conaffinity="0" group="1" rgba="0.9 0.9 0.9 1" />
+                                                            <geom size="0.011 0.003175 0.01875" pos="0 -0.0220203 0.03242" type="box" rgba="0.9 0.9 0.9 1" condim="4"/>
+
+                                                            <site name="right_finger_sensor_site" size="0.011 0.003175 0.01875" pos="0 -0.0220203 0.03242" type="box" rgba="0.3 0.2 0.1 0.3"/>
+
+                                                        </body>
+                                                    </body>
+                                                    <body name="right_inner_knuckle" pos="0.0127 0 0.06942" quat="0.707107 0 0 -0.707107">
+                                                        <inertial pos="0.000123012 0.0507851 0.00103969" quat="0.497203 0.502496 -0.507943 0.492221" mass="0.0271177" diaginertia="2.83809e-05 2.61936e-05 2.81319e-06" />
+                                                        <joint name="right_inner_knuckle_joint" pos="0 0 0" axis="1 0 0" limited="true" range="0 0.8757" />
+                                                        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" mesh="inner_knuckle_visual" />
+                                                        <geom size="0.005 0.005 0.005" type="box" rgba="0.1 0.1 0.1 1" />
+                                                    </body>
+                                                </body>
+                                            </body>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+                <body name="base" pos="0 0 0" quat="1.7949e-09 0 0 -1">
+                    <inertial pos="0 0 0" quat="1.7949e-09 0 0 -1" mass="0" diaginertia="0 0 0" />
+                </body>
+            </body>
+        </body>
+
+        <!--body name="target_body_1" pos="0 0.4 1.0">
+            <geom name="target_1" pos="0 0 0" size="0.030 0.030 0.030" type="box" rgba="0.9529411765 0.8 0.03529411765 1" mass="0.1" />
+            <joint name="free_x_1" pos="0 0 0" type="slide" axis="1 0 0" frictionloss="0" damping="0" />
+            <joint name="free_y_1" pos="0 0 0" type="slide" axis="0 1 0" frictionloss="0" damping="0" />
+            <joint name="free_z_1" pos="0 0 0" type="slide" axis="0 0 1" frictionloss="0" damping="0" />
+            <joint name="free_ball_1" pos="0 0 0" type="ball" frictionloss="0" damping="0" />
+        </body-->
+        <body name="torso" pos="0.0 0.3 1.0/">
+          <camera mode="track" name="randomtrack" pos="0.0 0.0 4.0" quat="0 0 0 1"/>
+          <camera name="track" mode="trackcom" pos="0 -3 0.3" xyaxes="1 0 0 0 0 1"/>
+          <!--geom name="torso_geom" pos="0 0 0" size="0.25" type="sphere"/-->
+          <geom name="torso_geom" rgba="0.726302 0.700787 0.063381 1" size="0.011666" type="capsule" />
+          <!--geom fromto="0 0 0 0.070711 0.070711 0" name="torso_geom" rgba="0.726302 0.700787 0.063381 1" size="0.011666" type="capsule" /-->
+          <!--joint armature="0" damping="0" limited="false" margin="0.01" name="root" pos="0 0 0" type="free"/-->
+          <!--joint name="free_x_1" pos="0 0 0" type="slide" axis="1 0 0" frictionloss="0" damping="0" />
+          <joint name="free_y_1" pos="0 0 0" type="slide" axis="0 1 0" frictionloss="0" damping="0" />
+          <joint name="free_z_1" pos="0 0 0" type="slide" axis="0 0 1" frictionloss="0" damping="0" />
+          <joint name="free_ball_1" pos="0 0 0" type="ball" frictionloss="0" damping="0" /-->
+        </body>
+
+        <!--body name="marker1" pos="-0.1 0.3 1.2/">
+          <geom name="marker1_geom" pos="0 0 0" size="0.025" type="sphere"/>
+        </body>
+        <body name="marker2" pos="0.1 0.3 1.2/">
+          <geom name="marker2_geom" pos="0 0 0" size="0.025" type="sphere"/>
+        </body-->
+
+        <camera mode="fixed" name="frontview" pos="0.81725 1.34 0.84" euler="-1.5708 0 0"/>
+    </worldbody>
+
+
+    <tendon>
+    </tendon>
+
+    <equality>
+        <joint joint1="left_inner_knuckle_joint" joint2="finger_joint" polycoef="0 1 0 0 0" solimp="0.9 0.95 0.001 0.5 2" solref="0.002 1.0"/>
+        <joint joint1="left_inner_finger_joint" joint2="finger_joint" polycoef="0 -1 0 0 0" solimp="0.9 0.95 0.001 0.5 2" solref="0.002 1.0"/>
+        <joint joint1="right_inner_knuckle_joint" joint2="right_outer_knuckle_joint" polycoef="0 1 0 0 0" solimp="0.9 0.95 0.001 0.5 2" solref="0.002 1.0"/>
+        <joint joint1="right_inner_finger_joint" joint2="right_outer_knuckle_joint" polycoef="0 -1 0 0 0" solimp="0.9 0.95 0.001 0.5 2" solref="0.002 1.0"/>
+	</equality>
+
+    <actuator>
+        <!--<motor name='shoulder_pan_T' ctrllimited="true" ctrlrange="-2 2" joint='shoulder_pan_joint' gear="101"/> 
+        <motor name='shoulder_lift_T' ctrllimited="true" ctrlrange="-2 2" joint='shoulder_lift_joint' gear="101"/>
+        <motor name='forearm_T' ctrllimited="true" ctrlrange="-2 2" joint='elbow_joint' gear="101" />
+        <motor name='wrist_1_T' ctrllimited="true" ctrlrange="-1 1" joint='wrist_1_joint' gear="101"/>
+        <motor name='wrist_2_T' ctrllimited="true" ctrlrange="-1 1" joint='wrist_2_joint' gear="101"/>
+        <motor name='wrist_3_T' ctrllimited="true" ctrlrange="-1 1" joint='wrist_3_joint' gear="101"/>-->
+        <position name='shoulder_pan_T' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='shoulder_pan_joint' kp="500" /> 
+        <!--general name="shoulder_pan_T" joint="shoulder_pan_joint" dyntype="none" gaintype="fixed" biastype="affine" gainprm="200 10 10.0 0.1 0.1 0" /-->
+
+        <position name='shoulder_lift_T' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='shoulder_lift_joint' kp="500" />
+        <position name='forearm_T' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='elbow_joint' kp="500"  />
+        <position name='wrist_1_T' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='wrist_1_joint' kp="500" />
+        <position name='wrist_2_T' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='wrist_2_joint' kp="500" />
+        <position name='wrist_3_T' ctrllimited="true" ctrlrange="-3.141592 3.141592" joint='wrist_3_joint' kp="500" />
+
+        <motor name='finger_joint_left_T' ctrllimited="true" ctrlrange="-1.0 1.0" joint="finger_joint" gear="100" />
+        <motor name='finger_joint_right_T' ctrllimited="true" ctrlrange="-1.0 1.0" joint="right_outer_knuckle_joint" gear="100" />
+
+        <!--position name='finger_joint_left_T' ctrllimited="true" ctrlrange="0 0.8" joint="finger_joint" kp="30000" user="1"></position>
+        <position name='finger_joint_right_T' ctrllimited="true" ctrlrange="0 0.8" joint="right_outer_knuckle_joint" kp="30000" user="1"></position-->
+
+        <!--motor name="gravity_1" joint="free_z_1" gear="1 0 0 0 0 0" /-->
+    </actuator>
+
+    <sensor>
+        <touch name="left_finger_sensor" site="left_finger_sensor_site" />
+        <touch name="right_finger_sensor" site="right_finger_sensor_site" />
+    </sensor>
+</mujoco>

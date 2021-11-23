@@ -1,0 +1,21 @@
+<mujoco model="house">
+  <asset>
+    <mesh name="house_base"       file="house/house_base_o.stl"      scale="0.01 0.01 0.01"/>
+    <mesh name="house_door"       file="house/house_door_o.stl"      scale="0.01 0.01 0.01"/>
+  </asset>
+
+  <worldbody>
+    <body name="torso" pos="0.0 0.8 1.0" euler="0 0 0">
+      <geom type="mesh" mesh="house_base"/>
+      <body name="house_door_link" pos="-0.02 0.02 0.0">
+        <joint axis="0 0 1" name="joint1" pos="-0.1545 -0.2780 0" range="-1.0 1.0" type="hinge"/>
+        <geom type="mesh" mesh="house_door"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor gear="200" joint="joint1" name="joint1"/>
+  </actuator>
+
+</mujoco>
