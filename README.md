@@ -32,7 +32,7 @@ Follow https://github.com/openai/mujoco-py
 
 ```
 conda install -c conda-forge ros-rospy 
-pip install scipy
+pip install scipy sympy
 ```
 Add following lines to bashrc file
 - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jaegu/.mujoco/mujoco210/bin
