@@ -35,6 +35,6 @@ conda install -c conda-forge ros-rospy
 ```
 ### Launch UR5 moveit package
 ```
-conda install -c conda-forge ros-rospy 
+roslaunch ur5_robotiq_moveit demo.launch
 ```
 
