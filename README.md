@@ -8,7 +8,13 @@ ROS Kinetic, conda, python 3.6
 
 Follow http://wiki.ros.org/kinetic/Installation/Ubuntu
 
-build your catkin workspace with catkin_ws
+build your catkin workspace with [catkin_ws](https://github.com/cjg429/mujoco_ros_ur5_simulator/tree/main/catkin_ws)
+
+```
+sudo apt-get install ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-moveit
+```
+- source /opt/ros/kinetic/setup.bash
+- source ~/catkin_ws/devel/setup.bash
 
 ### Install Conda
 
@@ -24,4 +30,11 @@ conda install -c anaconda patchelf
 ```
 Follow https://github.com/openai/mujoco-py
 
+```
+conda install -c conda-forge ros-rospy 
+```
+### Launch UR5 moveit package
+```
+roslaunch ur5_robotiq_moveit demo.launch
+```
 
