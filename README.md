@@ -33,4 +33,8 @@ Follow https://github.com/openai/mujoco-py
 ```
 conda install -c conda-forge ros-rospy 
 ```
+### Launch UR5 moveit package
+```
+conda install -c conda-forge ros-rospy 
+```
 
