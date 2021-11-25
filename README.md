@@ -37,7 +37,7 @@ pip install scipy sympy opencv-python
 Add following lines to bashrc file
 - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jaegu/.mujoco/mujoco210/bin
 - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
-- export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+- export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so:/usr/lib/nvidia-440/libGL.so
 
 ### Launch UR5 moveit package
 ```
