@@ -52,4 +52,6 @@ python2 ur5_moveit/planner.py
 conda activate mujoco
 python ur5_moveit/mujoco_planner.py
 ```
+### Install GQCNN
+
 
