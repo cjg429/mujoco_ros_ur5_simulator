@@ -54,6 +54,7 @@ python ur5_moveit/mujoco_planner.py
 ```
 ### Install GQCNN
 Follow https://berkeleyautomation.github.io/gqcnn/install/install.html#pip-installation
+
 depenecies: autolab-core, perception, visualization
 
 
