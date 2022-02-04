@@ -57,4 +57,6 @@ Follow https://berkeleyautomation.github.io/gqcnn/install/install.html#pip-insta
 
 depenecies: berkeley/autolab-core, berkeley/perception, berkeley/visualization
 
+## Editing XML
 
+https://ropiens.tistory.com/170
