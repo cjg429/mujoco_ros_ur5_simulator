@@ -60,3 +60,5 @@ depenecies: berkeley/autolab-core, berkeley/perception, berkeley/visualization
 ## Editing XML
 
 https://ropiens.tistory.com/170
+
+about contact parameters: https://mujoco.readthedocs.io/en/latest/computation.html#cocontact
