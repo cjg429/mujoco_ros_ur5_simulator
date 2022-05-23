@@ -51,7 +51,7 @@ python2 ur5_moveit/planner.py
 ```
 conda activate mujoco
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
-python ur5_moveit/mujoco_planner.py
+python ur5_moveit/mujoco_planner_test.py
 ```
 ### Install GQCNN
 Follow https://berkeleyautomation.github.io/gqcnn/install/install.html#pip-installation
