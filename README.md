@@ -65,3 +65,7 @@ https://ropiens.tistory.com/170
 about contact parameters: https://mujoco.readthedocs.io/en/latest/computation.html#cocontact
 
 install trimesh and vhacd
+
+## Understading of Gripper Rotation
+
+
