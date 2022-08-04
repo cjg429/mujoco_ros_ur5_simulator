@@ -69,4 +69,3 @@ install trimesh and vhacd
 ## Understading of Gripper Rotation
 
 ![alt text](https://github.com/cjg429/mujoco_ros_ur5_simulator/blob/main/images/gripper_rotation.PNG)
-![alt text](https://github.com/cjg429/mujoco_ros_ur5_simulator/blob/images/gripper_rotation.jpg?raw=true)
